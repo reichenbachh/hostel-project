@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import userSchema from "../models/userSchema";
+import hostelSchema from "../models/hostelSchema";
 import { Http } from "@status/codes";
 
 const createUser = async (req, res, next) => {
@@ -35,9 +36,11 @@ const createUser = async (req, res, next) => {
 const loginUser = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const userExists = await userSchema.findOne({
-    email,
-  });
+  const userExists = await userSchema
+    .findOne({
+      email,
+    })
+    .populate("hostels_owned");
 
   const isPasswordValid = userExists.matchPassword(password);
 
@@ -48,6 +51,15 @@ const loginUser = async (req, res, next) => {
       msg: "invalid credentials",
     });
   }
+
+  const hostelsOwned = await hostelSchema.find({
+    hostelManager: userExists._id,
+  });
+
+  console.log(hostelsOwned);
+
+  //add hostel object unto response
+  userExists.hostels_owned = hostelsOwned;
 
   res.status(Http.Ok).json({
     success: true,
