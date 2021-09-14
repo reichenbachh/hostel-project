@@ -20,14 +20,41 @@ const hostelSchema = new Schema({
   },
   bookedRequests: [
     {
-      type: String,
-      listing_type: {
+      firstName: {
         type: String,
-        enum: ["premuim", "luxury", "regular"],
+        required: true,
       },
-      createAt: {
+      lastName: {
+        type: String,
+        required: true,
+      },
+      course: {
+        type: String,
+        required: true,
+      },
+      level: {
+        type: String,
+        required: true,
+      },
+      indexNumber: {
+        type: String,
+        required: true,
+      },
+      email: {
+        type: String,
+        required: true,
+        match: [
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+          "Please enter a valid email",
+        ],
+      },
+      phone: {
         type: Date,
         default: Date.now,
+        match: [
+          /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/,
+          "Please enter a valid phone number",
+        ],
       },
     },
   ],

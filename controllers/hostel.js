@@ -87,4 +87,29 @@ const getAllHostels = async (req, res, next) => {
   }
 };
 
-export { createHostel, fetchHostel, getAllHostels };
+const bookHostel = async (req, res, next) => {
+  try {
+    const { hostel_id } = req.params;
+
+    await hostelSchema.findByIdAndUpdate(
+      { _id: hostel_id },
+      {
+        $push: { bookedRequests: req.body },
+      }
+    );
+    res.status(Http.Ok).json({
+      success: false,
+      data: "",
+      msg: "Booking successful!",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(Http.BadRequest).json({
+      success: false,
+      data: "",
+      msg: "Booking successful!",
+    });
+  }
+};
+
+export { bookHostel, createHostel, fetchHostel, getAllHostels };
