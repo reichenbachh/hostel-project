@@ -1,7 +1,7 @@
 import express from "express";
 import {
   bookHostel,
-  createHostel,
+  createHostel,  
   fetchHostel,
   getAllHostels,
 } from "../controllers/hostel";

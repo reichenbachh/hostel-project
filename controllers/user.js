@@ -42,7 +42,9 @@ const loginUser = async (req, res, next) => {
     })
     .populate("hostels_owned");
 
-  const isPasswordValid = userExists.matchPassword(password);
+  const isPasswordValid = await userExists.matchPassword(password);
+
+  console.log(isPasswordValid);
 
   if (!isPasswordValid || !userExists) {
     return res.status(Http.Unauthorized).json({

@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import { connectDB } from "./config/dbConfig";
+import morgan from "morgan";
 
 //importing route files
 import { router as userRouter } from "./routes/users";
@@ -15,6 +16,8 @@ dotenv.config({ path: "./config/config.env" });
 
 //Parse requests with application/Json headers
 app.use(express.json());
+
+app.use(morgan("dev"));
 
 //establish connection to MongoDB atlas shard
 connectDB();

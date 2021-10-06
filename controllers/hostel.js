@@ -16,7 +16,7 @@ const createHostel = async (req, res, next) => {
     });
 
     res.status(Http.Ok).json({
-      success: false,
+      success: true,
       data: newHostel,
       msg: "hostel created",
     });
@@ -89,14 +89,15 @@ const getAllHostels = async (req, res, next) => {
 
 const bookHostel = async (req, res, next) => {
   try {
-    const { hostel_id } = req.params;
+    console.log(req.params.hostel_id);
+    // const { hostel_id } = req.params;
 
-    await hostelSchema.findByIdAndUpdate(
-      { _id: hostel_id },
-      {
-        $push: { bookedRequests: req.body },
-      }
-    );
+    // await hostelSchema.findByIdAndUpdate(
+    //   { _id: hostel_id },
+    //   {
+    //     $push: { bookedRequests: req.body },
+    //   }
+    // );
     res.status(Http.Ok).json({
       success: false,
       data: "",
